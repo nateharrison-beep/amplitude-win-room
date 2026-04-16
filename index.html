@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amplitude Win Room</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #F5F7FA; color: #111827; }
+    a { color: #2D6BE4; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .app { min-height: 100vh; }
+    .page-content { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+    .global-nav { background: #1A1A2E; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .global-nav .brand { color: white; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; }
+    .global-nav .back-link { color: #94A3B8; font-size: 13px; cursor: pointer; }
+    .global-nav .back-link:hover { color: white; text-decoration: none; }
+    .deal-header { background: #1A1A2E; padding: 20px 24px; }
+    .deal-header-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr auto; gap: 24px; align-items: center; }
+    .deal-logo-wrap { background: white; border-radius: 10px; padding: 8px 14px; display: flex; align-items: center; justify-content: center; min-width: 80px; height: 52px; }
+    .deal-logo-wrap img { max-height: 36px; max-width: 120px; object-fit: contain; }
+    .deal-logo-monogram { width: 52px; height: 52px; border-radius: 10px; background: #2D6BE4; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 700; }
+    .deal-title { color: white; font-size: 22px; font-weight: 700; }
+    .deal-meta { display: flex; align-items: center; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+    .deal-pod { text-align: right; }
+    .deal-pod-row { color: #94A3B8; font-size: 12px; line-height: 1.7; }
+    .deal-pod-row strong { color: #CBD5E1; font-weight: 500; }
+    .artifacts-bar { background: #EFF3FF; border-bottom: 1px solid #D4DCF7; padding: 10px 24px; }
+    .artifacts-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .artifact-label { font-size: 11px; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+    .artifact-chip { display: inline-flex; align-items: center; gap: 5px; background: white; border: 1px solid #C7D2FE; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #3730A3; font-weight: 500; }
+    .artifact-chip:hover { background: #EEF2FF; text-decoration: none; }
+    .card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 16px; overflow: hidden; }
+    .card-header { padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid #F3F4F6; user-select: none; }
+    .card-header:hover { background: #FAFAFA; }
+    .card-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #6B7280; }
+    .card-body { padding: 20px; }
+    .card-toggle { color: #9CA3AF; font-size: 12px; transition: transform 0.2s; }
+    .card-toggle.open { transform: rotate(180deg); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    @media (max-width: 768px) { .two-col, .three-col { grid-template-columns: 1fr; } .deal-header-inner { grid-template-columns: 1fr; } .deal-pod { text-align: left; } }
+    .badge { display: inline-flex; align-items: center; border-radius: 999px; font-size: 11px; font-weight: 600; padding: 3px 10px; white-space: nowrap; }
+    .badge-early { background: #E0F2FE; color: #0369A1; }
+    .badge-mid { background: #FEF3C7; color: #92400E; }
+    .badge-late { background: #D1FAE5; color: #065F46; }
+    .badge-green { background: #DCFCE7; color: #166534; }
+    .badge-yellow { background: #FEF9C3; color: #854D0E; }
+    .badge-red { background: #FEE2E2; color: #991B1B; }
+    .badge-gray { background: #F3F4F6; color: #374151; }
+    .badge-blue { background: #EFF6FF; color: #1D4ED8; }
+    .health-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; flex-shrink: 0; }
+    .dot-green { background: #22C55E; }
+    .dot-yellow { background: #EAB308; }
+    .dot-red { background: #EF4444; }
+    .dot-gray { background: #9CA3AF; }
+    .dot-blue { background: #3B82F6; }
+    .story-list { list-style: none; padding: 0; }
+    .story-list li { padding: 6px 0 6px 20px; position: relative; font-size: 14px; line-height: 1.6; border-bottom: 1px solid #F9FAFB; }
+    .story-list li::before { content: "•"; position: absolute; left: 4px; color: #2D6BE4; font-weight: 700; }
+    .story-list li:last-child { border-bottom: none; }
+    .tag-cluster { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tag { background: #F3F4F6; color: #374151; border-radius: 6px; padding: 3px 9px; font-size: 12px; font-weight: 500; }
+    .tag-red { background: #FEE2E2; color: #991B1B; }
+    .tag-blue { background: #EFF6FF; color: #1D4ED8; }
+    .info-table { width: 100%; border-collapse: collapse; }
+    .info-table tr td { padding: 7px 0; font-size: 13px; vertical-align: top; }
+    .info-table tr td:first-child { color: #6B7280; font-weight: 500; width: 130px; padding-right: 12px; }
+    .info-table tr:not(:last-child) td { border-bottom: 1px solid #F9FAFB; }
+    .stakeholder-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #F9FAFB; }
+    .stakeholder-row:last-child { border-bottom: none; }
+    .stakeholder-role { font-size: 11px; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: 0.06em; width: 140px; flex-shrink: 0; padding-top: 2px; }
+    .stakeholder-name { font-size: 13px; font-weight: 600; color: #111827; }
+    .stakeholder-title { font-size: 12px; color: #6B7280; margin-top: 1px; }
+    .stakeholder-list { font-size: 13px; color: #374151; }
+    .timeline { position: relative; padding-left: 20px; }
+    .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: #E5E7EB; }
+    .timeline-item { position: relative; padding: 0 0 16px 20px; }
+    .timeline-item::before { content: ''; position: absolute; left: -13px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: #D1D5DB; border: 2px solid white; }
+    .timeline-item.past::before { background: #6B7280; }
+    .timeline-item.upcoming::before { background: #2D6BE4; }
+    .timeline-divider { display: flex; align-items: center; gap: 10px; margin: 8px 0 16px -20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9CA3AF; }
+    .timeline-divider::after { content: ''; flex: 1; height: 1px; background: #E5E7EB; }
+    .timeline-date { font-size: 11px; color: #9CA3AF; font-weight: 500; }
+    .timeline-topic { font-size: 13px; font-weight: 600; color: #111827; margin: 2px 0; }
+    .timeline-contact { font-size: 12px; color: #6B7280; }
+    .why-card { background: #F8FAFF; border: 1px solid #E0E7FF; border-radius: 10px; padding: 16px; }
+    .why-icon { font-size: 22px; margin-bottom: 8px; }
+    .why-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #4338CA; margin-bottom: 6px; }
+    .why-text { font-size: 13px; line-height: 1.65; color: #374151; }
+    .meddpicc-table { width: 100%; border-collapse: collapse; }
+    .meddpicc-table th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #6B7280; padding: 8px 12px; border-bottom: 2px solid #F3F4F6; text-align: left; }
+    .meddpicc-table td { padding: 10px 12px; border-bottom: 1px solid #F9FAFB; font-size: 13px; vertical-align: top; }
+    .meddpicc-element { font-weight: 600; color: #111827; }
+    .meddpicc-detail { font-size: 12px; color: #6B7280; margin-top: 3px; line-height: 1.5; }
+    .meddpicc-summary { display: flex; align-items: center; gap: 16px; padding: 12px; background: #F9FAFB; border-radius: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .meddpicc-count { font-size: 13px; font-weight: 600; }
+    .challenges-list { list-style: none; padding: 0; }
+    .challenges-list li { padding: 7px 0 7px 14px; position: relative; font-size: 13px; line-height: 1.5; border-bottom: 1px solid #F9FAFB; }
+    .challenges-list li:last-child { border-bottom: none; }
+    .stuck-list li::before { content: ''; position: absolute; left: 0; top: 14px; width: 4px; height: 4px; border-radius: 50%; background: #EF4444; }
+    .help-list li::before { content: ''; position: absolute; left: 0; top: 14px; width: 4px; height: 4px; border-radius: 50%; background: #2D6BE4; }
+    .home-header { background: #1A1A2E; padding: 24px; text-align: center; }
+    .home-header h1 { color: white; font-size: 26px; font-weight: 700; letter-spacing: 0.06em; }
+    .home-header p { color: #94A3B8; font-size: 14px; margin-top: 4px; }
+    .deal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-top: 24px; }
+    .deal-card { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 18px; cursor: pointer; transition: box-shadow 0.15s, transform 0.1s; }
+    .deal-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); transform: translateY(-1px); }
+    .deal-card-logo { width: 40px; height: 40px; border-radius: 8px; object-fit: contain; background: #F9FAFB; padding: 4px; margin-bottom: 12px; }
+    .deal-card-monogram { width: 40px; height: 40px; border-radius: 8px; background: #2D6BE4; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; margin-bottom: 12px; }
+    .deal-card-name { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 8px; }
+    .deal-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .deal-card-arr { font-size: 18px; font-weight: 700; color: #111827; }
+    .deal-card-close { font-size: 12px; color: #6B7280; }
+    .deal-card-updated { font-size: 11px; color: #9CA3AF; margin-top: 8px; }
+    .empty-state { text-align: center; padding: 60px 20px; color: #9CA3AF; }
+    .empty-state h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #6B7280; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const { useState, useEffect, createElement: h } = React;
+
+function stageBadgeClass(cat) {
+  if (!cat) return 'badge-gray';
+  const c = cat.toUpperCase();
+  if (c.includes('EARLY')) return 'badge-early';
+  if (c.includes('MID')) return 'badge-mid';
+  if (c.includes('LATE')) return 'badge-late';
+  return 'badge-gray';
+}
+function healthDot(h) {
+  if (h === 'on-track') return 'dot-green';
+  if (h === 'needs-attention') return 'dot-yellow';
+  if (h === 'at-risk') return 'dot-red';
+  return 'dot-gray';
+}
+function healthLabel(h) {
+  if (h === 'on-track') return 'On Track';
+  if (h === 'needs-attention') return 'Needs Attention';
+  if (h === 'at-risk') return 'At Risk';
+  return '—';
+}
+function healthBadgeClass(h) {
+  if (h === 'on-track') return 'badge-green';
+  if (h === 'needs-attention') return 'badge-yellow';
+  if (h === 'at-risk') return 'badge-red';
+  return 'badge-gray';
+}
+function scoreBadgeClass(s) {
+  if (s === 'green') return 'badge-green';
+  if (s === 'yellow') return 'badge-yellow';
+  if (s === 'red') return 'badge-red';
+  return 'badge-gray';
+}
+function scoreLabel(s) {
+  if (s === 'green') return '🟢 Validated';
+  if (s === 'yellow') return '🟡 Partial';
+  if (s === 'red') return '🔴 Missing';
+  return '—';
+}
+function fmtARR(n) {
+  if (!n) return '—';
+  if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return '$' + (n / 1000).toFixed(0) + 'K';
+  return '$' + n;
+}
+function fmtDate(d) {
+  if (!d) return '—';
+  try { return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+  catch { return d; }
+}
+function monogram(name) {
+  if (!name) return '?';
+  const parts = name.trim().split(/\s+/);
+  return parts.length >= 2 ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase() : name[0].toUpperCase();
+}
+function statusDotClass(s) {
+  if (s === 'engaged' || s === 'strong') return 'dot-green';
+  if (s === 'identified' || s === 'testing') return 'dot-yellow';
+  return 'dot-red';
+}
+
+function Card({ title, children, defaultOpen = true }) {
+  const [open, setOpen] = useState(defaultOpen);
+  return h('div', { className: 'card' },
+    h('div', { className: 'card-header', onClick: () => setOpen(!open) },
+      h('span', { className: 'card-title' }, title),
+      h('span', { className: `card-toggle ${open ? 'open' : ''}` }, '▼')
+    ),
+    open && h('div', { className: 'card-body' }, children)
+  );
+}
+
+function HomePage({ deals, onSelect }) {
+  const sorted = [...deals].sort((a, b) => {
+    const order = { 'at-risk': 0, 'needs-attention': 1, 'on-track': 2 };
+    const ha = order[a.meddpicc?.overallHealth] ?? 3;
+    const hb = order[b.meddpicc?.overallHealth] ?? 3;
+    if (ha !== hb) return ha - hb;
+    return new Date(a.deal?.closeDate) - new Date(b.deal?.closeDate);
+  });
+  return h('div', { className: 'app' },
+    h('div', { className: 'home-header' },
+      h('h1', null, 'AMPLITUDE WIN ROOM'),
+      h('p', null, 'Deal review hub for CRO, VP, and POD')
+    ),
+    h('div', { className: 'page-content' },
+      sorted.length === 0
+        ? h('div', { className: 'empty-state' },
+            h('h2', null, 'No deals active yet'),
+            h('p', null, 'Run the Win Room skill to add your first deal snapshot.')
+          )
+        : h('div', { className: 'deal-grid' },
+            sorted.map(deal =>
+              h('div', { key: deal.dealSlug, className: 'deal-card', onClick: () => onSelect(deal.dealSlug) },
+                deal.account?.logoUrl
+                  ? h('img', { src: deal.account.logoUrl, className: 'deal-card-logo', alt: deal.account.name })
+                  : h('div', { className: 'deal-card-monogram' }, monogram(deal.account?.name || '')),
+                h('div', { className: 'deal-card-name' }, deal.account?.name),
+                h('div', { className: 'deal-card-meta' },
+                  h('span', { className: `badge ${stageBadgeClass(deal.deal?.stageCategory)}` }, deal.deal?.stageCategory || deal.deal?.stage),
+                  h('span', { className: `badge ${healthBadgeClass(deal.meddpicc?.overallHealth)}` },
+                    h('span', { className: `health-dot ${healthDot(deal.meddpicc?.overallHealth)}` }),
+                    healthLabel(deal.meddpicc?.overallHealth)
+                  )
+                ),
+                h('div', { className: 'deal-card-arr' }, fmtARR(deal.deal?.newARR)),
+                h('div', { className: 'deal-card-close' }, deal.deal?.quarter
+                  ? `${deal.deal.quarter} · Close ${fmtDate(deal.deal.closeDate)}`
+                  : `Close ${fmtDate(deal.deal?.closeDate)}`
+                ),
+                h('div', { className: 'deal-card-updated' }, `Updated ${fmtDate(deal.lastUpdated)}`)
+              )
+            )
+          )
+    )
+  );
+}
+
+function DealPage({ deal, onBack }) {
+  const { account, pod, artifacts, customerBackground, techStack, partnerLandscape,
+          stakeholders, meetings, threeWhys, meddpicc, challengesAndAsks } = deal;
+  const mItems = [
+    { key: 'metrics',          label: 'M — Metrics' },
+    { key: 'economicBuyer',    label: 'E — Economic Buyer' },
+    { key: 'decisionCriteria', label: 'D — Decision Criteria' },
+    { key: 'decisionProcess',  label: 'D — Decision Process' },
+    { key: 'paperProcess',     label: 'P — Paper Process' },
+    { key: 'identifiedPain',   label: 'I — Identified Pain' },
+    { key: 'champion',         label: 'C — Champion' },
+    { key: 'competition',      label: 'C — Competition' },
+  ];
+  const greens = mItems.filter(i => meddpicc?.[i.key]?.score === 'green').length;
+  const yellows = mItems.filter(i => meddpicc?.[i.key]?.score === 'yellow').length;
+  const reds = mItems.filter(i => meddpicc?.[i.key]?.score === 'red').length;
+
+  return h('div', { className: 'app' },
+    h('div', { className: 'global-nav' },
+      h('span', { className: 'brand' }, 'AMPLITUDE WIN ROOM'),
+      h('span', { className: 'back-link', onClick: onBack }, '← All Deals')
+    ),
+    h('div', { className: 'deal-header' },
+      h('div', { className: 'deal-header-inner' },
+        account?.logoUrl
+          ? h('div', { className: 'deal-logo-wrap' }, h('img', { src: account.logoUrl, alt: account.name }))
+          : h('div', { className: 'deal-logo-monogram' }, monogram(account?.name || '')),
+        h('div', null,
+          h('div', { className: 'deal-title' }, account?.name),
+          h('div', { className: 'deal-meta' },
+            h('span', { className: `badge ${stageBadgeClass(deal.deal?.stageCategory)}` }, deal.deal?.stageCategory || deal.deal?.stage),
+            h('span', { style: { color: 'white', fontWeight: 700, fontSize: 16 } }, fmtARR(deal.deal?.newARR)),
+            deal.deal?.quarter && h('span', { style: { color: '#94A3B8', fontSize: 13 } }, deal.deal.quarter),
+            h('span', { style: { color: '#94A3B8', fontSize: 13 } }, `Close ${fmtDate(deal.deal?.closeDate)}`),
+            h('span', { className: `badge ${healthBadgeClass(meddpicc?.overallHealth)}` },
+              h('span', { className: `health-dot ${healthDot(meddpicc?.overallHealth)}` }),
+              healthLabel(meddpicc?.overallHealth)
+            )
+          )
+        ),
+        h('div', { className: 'deal-pod' },
+          pod && Object.entries({
+            'AE': pod.ae, 'CSM': pod.csm, 'Exec Sponsor': pod.execSponsor,
+            'Sales Dir': pod.salesDirector, 'SE': pod.se
+          }).map(([role, name]) => name && h('div', { key: role, className: 'deal-pod-row' },
+            h('strong', null, role + ': '), name
+          ))
+        )
+      )
+    ),
+    artifacts?.length > 0 && h('div', { className: 'artifacts-bar' },
+      h('div', { className: 'artifacts-inner' },
+        h('span', { className: 'artifact-label' }, 'Links:'),
+        artifacts.map(a => h('a', { key: a.label, href: a.url, target: '_blank', className: 'artifact-chip' }, '📄 ' + a.label))
+      )
+    ),
+    h('div', { className: 'page-content' },
+      h(Card, { title: 'Customer Background' },
+        h('ul', { className: 'story-list' },
+          customerBackground?.story?.map((s, i) => h('li', { key: i }, s))
+        ),
+        h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 16 } },
+          h('div', null,
+            h('div', { style: { fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#6B7280', marginBottom: 6 } }, 'Tech Stack'),
+            h('div', { className: 'tag-cluster' },
+              techStack?.dataWarehouse && h('span', { className: 'tag' }, '🏗 ' + techStack.dataWarehouse),
+              techStack?.cdp && h('span', { className: 'tag' }, '🔗 ' + techStack.cdp),
+              techStack?.competitiveFootprint?.map(t => h('span', { key: t, className: 'tag tag-red' }, '⚔ ' + t)),
+              techStack?.other?.map(t => h('span', { key: t, className: 'tag' }, t))
+            )
+          ),
+          h('div', null,
+            h('div', { style: { fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#6B7280', marginBottom: 6 } }, 'Partner Landscape'),
+            h('div', { className: 'tag-cluster' },
+              partnerLandscape?.map(p => h('span', { key: p, className: 'tag tag-blue' }, p))
+            )
+          )
+        )
+      ),
+      h('div', { className: 'two-col' },
+        h(Card, { title: 'Deal Info' },
+          h('table', { className: 'info-table' },
+            h('tbody', null,
+              h('tr', null, h('td', null, 'Stage'), h('td', null, `${deal.deal?.stage} — ${deal.deal?.stageLabel}`)),
+              h('tr', null, h('td', null, 'Created'), h('td', null, fmtDate(deal.deal?.oppCreateDate))),
+              h('tr', null, h('td', null, 'Close Date'), h('td', null, fmtDate(deal.deal?.closeDate))),
+              h('tr', null, h('td', null, 'New ARR'), h('td', null, h('strong', null, fmtARR(deal.deal?.newARR)))),
+              h('tr', null, h('td', null, 'Forecast'), h('td', null, deal.deal?.forecastCategory || '—')),
+              h('tr', null, h('td', null, 'Products'),
+                h('td', null, h('div', { className: 'tag-cluster' },
+                  deal.deal?.productsConsidered?.map(p => h('span', { key: p, className: 'tag tag-blue' }, p))
+                ))
+              ),
+              h('tr', null, h('td', null, 'AE'), h('td', null, deal.deal?.aeOwner || '—')),
+              account?.isExistingCustomer && h('tr', null, h('td', null, 'Current ARR'), h('td', null, fmtARR(account.currentARR)))
+            )
+          )
+        ),
+        h(Card, { title: 'Stakeholders' },
+          h('div', null,
+            [
+              { role: 'Economic Buyer', data: stakeholders?.economicBuyer, statusField: 'status' },
+              { role: 'Business Champion', data: stakeholders?.businessChampion, statusField: 'strength' },
+              { role: 'Technical Champion', data: stakeholders?.technicalChampion, statusField: 'strength' },
+            ].map(({ role, data, statusField }) => data?.name && h('div', { key: role, className: 'stakeholder-row' },
+              h('div', { className: 'stakeholder-role' }, role),
+              h('div', null,
+                h('div', { style: { display: 'flex', alignItems: 'center', gap: 6 } },
+                  h('span', { className: `health-dot ${statusDotClass(data[statusField])}` }),
+                  h('span', { className: 'stakeholder-name' }, data.name)
+                ),
+                h('div', { className: 'stakeholder-title' }, data.title)
+              )
+            )),
+            [
+              { role: 'Users', list: stakeholders?.users },
+              { role: 'Evaluators', list: stakeholders?.evaluators },
+              { role: 'Coaches', list: stakeholders?.coaches },
+              { role: 'Detractors', list: stakeholders?.detractors },
+            ].filter(({ list }) => list?.length > 0).map(({ role, list }) =>
+              h('div', { key: role, className: 'stakeholder-row' },
+                h('div', { className: 'stakeholder-role' }, role),
+                h('div', { className: 'stakeholder-list' },
+                  list.map(p => typeof p === 'string' ? p : `${p.name}${p.title ? ' · ' + p.title : ''}`).join(', ')
+                )
+              )
+            )
+          )
+        )
+      ),
+      h(Card, { title: 'Meetings & Timeline' },
+        h('div', { className: 'timeline' },
+          meetings?.past?.map((m, i) => h('div', { key: i, className: 'timeline-item past' },
+            h('div', { className: 'timeline-date' }, fmtDate(m.date)),
+            h('div', { className: 'timeline-topic' }, m.topic),
+            h('div', { className: 'timeline-contact' }, m.keyContact),
+            m.milestone && h('span', { className: 'badge badge-green', style: { marginTop: 4 } }, '✓ ' + m.milestone)
+          )),
+          meetings?.upcoming?.length > 0 && h('div', { className: 'timeline-divider' }, 'UPCOMING'),
+          meetings?.upcoming?.map((m, i) => h('div', { key: i, className: 'timeline-item upcoming' },
+            h('div', { className: 'timeline-date' }, fmtDate(m.date)),
+            h('div', { className: 'timeline-topic' }, m.topic),
+            h('div', { className: 'timeline-contact' }, m.keyContact)
+          ))
+        )
+      ),
+      h(Card, { title: 'The 3 Whys' },
+        h('div', { className: 'three-col' },
+          h('div', { className: 'why-card' },
+            h('div', { className: 'why-icon' }, '❓'),
+            h('div', { className: 'why-label' }, 'Why Do Anything'),
+            h('div', { className: 'why-text' }, threeWhys?.whyAnything || '—')
+          ),
+          h('div', { className: 'why-card' },
+            h('div', { className: 'why-icon' }, '⏱️'),
+            h('div', { className: 'why-label' }, 'Why Now'),
+            h('div', { className: 'why-text' }, threeWhys?.whyNow || '—')
+          ),
+          h('div', { className: 'why-card' },
+            h('div', { className: 'why-icon' }, '⚡'),
+            h('div', { className: 'why-label' }, 'Why Amplitude'),
+            h('div', { className: 'why-text' }, threeWhys?.whyAmplitude || '—')
+          )
+        )
+      ),
+      h(Card, { title: 'MEDDPICC Scorecard' },
+        h('table', { className: 'meddpicc-table' },
+          h('thead', null, h('tr', null,
+            h('th', null, 'Element'), h('th', null, 'Score'), h('th', null, 'Evidence'), h('th', null, 'Gap / Action')
+          )),
+          h('tbody', null,
+            mItems.map(item => {
+              const d = meddpicc?.[item.key];
+              return h('tr', { key: item.key },
+                h('td', null, h('div', { className: 'meddpicc-element' }, item.label)),
+                h('td', null, h('span', { className: `badge ${scoreBadgeClass(d?.score)}` }, scoreLabel(d?.score))),
+                h('td', null, h('div', { className: 'meddpicc-detail' }, d?.evidence || '—')),
+                h('td', null, h('div', { className: 'meddpicc-detail' }, d?.gap || '—'))
+              );
+            })
+          )
+        ),
+        h('div', { className: 'meddpicc-summary' },
+          h('span', { className: 'meddpicc-count', style: { color: '#166534' } }, `🟢 ${greens} Green`),
+          h('span', { className: 'meddpicc-count', style: { color: '#854D0E' } }, `🟡 ${yellows} Yellow`),
+          h('span', { className: 'meddpicc-count', style: { color: '#991B1B' } }, `🔴 ${reds} Red`),
+          h('span', { className: `badge ${healthBadgeClass(meddpicc?.overallHealth)}`, style: { marginLeft: 'auto' } },
+            'Overall: ' + healthLabel(meddpicc?.overallHealth)
+          )
+        )
+      ),
+      h(Card, { title: 'Challenges & Asks' },
+        h('div', { className: 'two-col' },
+          h('div', null,
+            h('div', { style: { fontSize: 12, fontWeight: 700, color: '#991B1B', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10, paddingBottom: 6, borderBottom: '2px solid #FEE2E2' } }, "Where We're Stuck"),
+            h('ul', { className: 'challenges-list stuck-list' },
+              challengesAndAsks?.whereWeAreStuck?.map((s, i) => h('li', { key: i }, s))
+            )
+          ),
+          h('div', null,
+            h('div', { style: { fontSize: 12, fontWeight: 700, color: '#1D4ED8', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10, paddingBottom: 6, borderBottom: '2px solid #BFDBFE' } }, 'Where We Need Help'),
+            h('ul', { className: 'challenges-list help-list' },
+              challengesAndAsks?.whereWeNeedHelp?.map((s, i) => h('li', { key: i }, s))
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+function App() {
+  const [deals, setDeals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [activeDeal, setActiveDeal] = useState(null);
+
+  useEffect(() => {
+    function readHash() {
+      const hash = window.location.hash.replace('#/', '').replace('#', '');
+      setActiveDeal(hash || null);
+    }
+    readHash();
+    window.addEventListener('hashchange', readHash);
+    return () => window.removeEventListener('hashchange', readHash);
+  }, []);
+
+  useEffect(() => {
+    fetch('data/deals.json?v=' + Date.now())
+      .then(r => { if (!r.ok) throw new Error('Failed to load deal data'); return r.json(); })
+      .then(data => { setDeals(Array.isArray(data) ? data : []); setLoading(false); })
+      .catch(e => { setError(e.message); setLoading(false); });
+  }, []);
+
+  function selectDeal(slug) { window.location.hash = '/' + slug; }
+  function goHome() { window.location.hash = ''; }
+
+  if (loading) return h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', color: '#6B7280', fontFamily: 'Inter, sans-serif' } }, 'Loading…');
+  if (error) return h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', color: '#EF4444', fontFamily: 'Inter, sans-serif' } }, 'Error: ' + error);
+
+  const currentDeal = activeDeal ? deals.find(d => d.dealSlug === activeDeal) : null;
+  if (activeDeal && currentDeal) return h(DealPage, { deal: currentDeal, onBack: goHome });
+  return h(HomePage, { deals, onSelect: selectDeal });
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(h(App, null));
+</script>
+</body>
+</html>
