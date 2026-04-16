@@ -61,8 +61,8 @@
     "partnerLandscape": ["AWS (co-sell, marketplace benefits active)"],
     "stakeholders": {
       "economicBuyer": {
-        "name": "Chris Saunders",
-        "title": "Head of Product, 2K Technology",
+        "name": "Nibeta Baral",
+        "title": "CTO",
         "status": "identified"
       },
       "businessChampion": {
@@ -134,8 +134,8 @@
         },
         {
           "date": "2026-05-04",
-          "topic": "Executive call — Nate Crook <> Chris Saunders (EB engagement)",
-          "keyContact": "Chris Saunders, Nate Crook"
+          "topic": "Executive call — Nate Crook <> Nibeta Baral (CTO / EB engagement)",
+          "keyContact": "Nibeta Baral, Nate Crook"
         }
       ]
     },
@@ -152,13 +152,13 @@
       },
       "economicBuyer": {
         "score": "yellow",
-        "evidence": "Chris Saunders (Head of Product, 2K Technology) identified as EB. Exec call with Nate Crook scheduled 5/4. Phil Dixon (COO) listed in Salesforce as EB — needs reconciliation.",
-        "gap": "Direct EB engagement not yet achieved. Nate Crook prep and exec call 5/4 is the critical path item. Luke Whelan (Head of Data) also a steering stakeholder not yet formally in the loop."
+        "evidence": "Nibeta Baral (CTO) confirmed as EB via Stage 2 qualification field in Salesforce. Exec call with Nate Crook targeting 5/4.",
+        "gap": "Direct EB engagement not yet achieved — Nibeta not yet in the conversation. Nate Crook prep and exec call 5/4 is critical path."
       },
       "decisionCriteria": {
         "score": "yellow",
         "evidence": "Criteria documented in SF: measurable uplift in monetization/retention, campaign velocity, data security/governance, cross-functional adoption. 2K confirmed Amplitude is 'best in class' on UX.",
-        "gap": "Criteria not formally confirmed with EB (Chris Saunders). Value Map needed to tie criteria to quantified outcomes."
+        "gap": "Criteria not formally confirmed with EB (Nibeta Baral). Value Map needed to tie criteria to quantified outcomes."
       },
       "decisionProcess": {
         "score": "yellow",
@@ -190,11 +190,11 @@
     "challengesAndAsks": {
       "whereWeAreStuck": [
         "Data instrumentation too basic for full POC depth — data rolled up to 4 events blocks meaningful evaluation; Christian is bandwidth-constrained to fix (AI initiatives competing for his time)",
-        "EB (Chris Saunders) not yet directly engaged — exec call is 5/4 which is a late-stage risk if AI demo on 4/17 doesn't create urgency",
+        "EB (Nibeta Baral) not yet directly engaged — exec call is 5/4 which is a late-stage risk if AI demo on 4/17 doesn't create urgency",
         "6sense buying stage regressed Purchase → Decision on 4/13 — intent signal weakening going into demo week"
       ],
       "whereWeNeedHelp": [
-        "Nate Crook: prep for 5/4 Chris Saunders exec call — needs deal context, value map, and talking points before the call",
+        "Nate Crook: prep for 5/4 Nibeta Baral exec call — needs deal context, value map, and talking points before the call",
         "Ed Lee: intro to Luke Whelan (Head of Data, Dublin) post-4/17 demo — Luke is exec steering and not yet in the conversation",
         "Ali Bhamani: finalize Value Map / ROI deliverable before 5/4 exec call",
         "AWS team: activate co-sell / marketplace path — 98% of 2K cloud is on AWS, procurement shortcut not yet leveraged"
