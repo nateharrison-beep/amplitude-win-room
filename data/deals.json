@@ -22,7 +22,7 @@
       "industry": "Video Game Publishing",
       "size": "Take-Two Interactive subsidiary (~10,000 employees)",
       "isExistingCustomer": true,
-      "currentARR": null,
+      "currentARR": 127500,
       "productsOwned": ["Analytics"],
       "parentAccount": {
         "name": "Take-Two Interactive",
