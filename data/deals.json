@@ -1,0 +1,198 @@
+[
+  {
+    "dealSlug": "2k-games",
+    "lastUpdated": "2026-04-16T00:00:00Z",
+    "pod": {
+      "ae": "Nate Harrison",
+      "csm": "TBD",
+      "execSponsor": "Nate Crook",
+      "salesDirector": "Brian Wagner",
+      "se": "Bethany Mangan / Jeff Dubois"
+    },
+    "artifacts": [
+      { "label": "SF Opp", "url": "https://amplitude.my.salesforce.com/006VH00000cCQSHYA4" },
+      { "label": "AI Demo Deck", "url": "https://docs.google.com/presentation/d/1-AjcwNySXaoMoeTazkmGigNtLui7jwLtrLbZ5e30eTw/edit" },
+      { "label": "POC Criteria Deck", "url": "https://docs.google.com/presentation/d/1tPW8bytA5JZLKjJhuAZK9XvkuZ-x3t5JCeLXX1m_5MA/edit" },
+      { "label": "2K Architecture", "url": "https://docs.google.com/presentation/d/1uwgCp8M0J_ao_6ova1QReuRenKb3pKVI-qxa22679QI/edit" },
+      { "label": "Use Cases + Value Props", "url": "https://html-progressive-dis-efys.bolt.host" }
+    ],
+    "account": {
+      "name": "2K Games",
+      "logoUrl": "https://logo.clearbit.com/2k.com",
+      "industry": "Video Game Publishing",
+      "size": "Take-Two Interactive subsidiary (~10,000 employees)",
+      "isExistingCustomer": true,
+      "currentARR": 45000,
+      "productsOwned": ["Analytics"]
+    },
+    "deal": {
+      "opportunityName": "2K | Expand - Horizontal",
+      "stage": "S4",
+      "stageLabel": "Proof of Value",
+      "stageCategory": "MID STAGE",
+      "oppCreateDate": "2025-09-04",
+      "closeDate": "2026-06-18",
+      "quarter": "Q2 2026",
+      "newARR": 350000,
+      "forecastCategory": "Upside",
+      "productsConsidered": ["Analytics", "Experiment", "Session Replay"],
+      "aeOwner": "Nate Harrison"
+    },
+    "customerBackground": {
+      "story": [
+        "Existing Amplitude customer (Take-Two / 2K) with $45K current ARR — but analytically underutilized: event volume query coverage at 37% vs. 83% healthy benchmark, and MAU declining from a peak of ~47 in Jul '25 to ~30 today.",
+        "Core pain: Treasure Data CDP severely underperforming, limiting campaigns to 1–3/quarter vs. the industry standard of ~1/week; data rolled up into just 4 events, blocking meaningful user journey analysis and self-service insights for game teams.",
+        "Compelling event: AI transformation at 2K is creating a once-in-a-cycle window to modernize the analytics stack — Christian Yoder (Bioshock/Borderlands Core BU) is driving a two-phase AI POC with a hard Q2 close target; April 17 AI Overview demo is the pivotal next milestone.",
+        "2K's own team called Amplitude 'clearly the best for user experience' and 'best in class' — expansion opportunity surfaced through Core BU engagement with 50–90 additional campaigns/year possible and direct monetization revenue upside."
+      ]
+    },
+    "techStack": {
+      "dataWarehouse": "Databricks (managed by Christian Yoder)",
+      "cdp": "Treasure Data (underperforming, effectively EOL for this use case)",
+      "competitiveFootprint": ["Mixpanel", "CleverTap"],
+      "other": ["AWS (98% of cloud spend)", "Steam (user feedback)", "In-house BI / Tableau"]
+    },
+    "partnerLandscape": ["AWS (co-sell, marketplace benefits active)"],
+    "stakeholders": {
+      "economicBuyer": {
+        "name": "Chris Saunders",
+        "title": "Head of Product, 2K Technology",
+        "status": "identified"
+      },
+      "businessChampion": {
+        "name": "Ed Lee",
+        "title": "Director of Product, CoreTech",
+        "strength": "testing"
+      },
+      "technicalChampion": {
+        "name": "Christian Yoder",
+        "title": "Data Science Lead, Core BU (Bioshock/Borderlands)",
+        "strength": "strong"
+      },
+      "users": [
+        { "name": "Kit Brown-Watts", "title": "Data & Mobile Games Lead" },
+        { "name": "Adam Schlesinger", "title": "Director of Software Engineering (Amplitude Power User)" }
+      ],
+      "evaluators": [
+        { "name": "Michael Healy", "title": "Take-Two Marketing Intelligence Technology" },
+        { "name": "Barry Herbert", "title": "2K Technology" },
+        { "name": "Luke Whelan", "title": "Head of Data, Dublin (not yet formally engaged)" },
+        { "name": "Aruna Kamireddy", "title": "Sr. Data Engineer, Austin" }
+      ],
+      "coaches": [
+        { "name": "Kit Brown-Watts", "title": "POC coordinator, internal advocate" }
+      ],
+      "detractors": []
+    },
+    "meetings": {
+      "past": [
+        {
+          "date": "2026-03-18",
+          "topic": "POC Touchpoint — governance, warehouse ingest, architecture overview",
+          "keyContact": "Ed Lee, Bethany Mangan",
+          "milestone": ""
+        },
+        {
+          "date": "2026-04-01",
+          "topic": "AI Feedback / Steam integration demo — differentiation vs. Mixpanel & CleverTap",
+          "keyContact": "Ed Lee, Ganit Bar-Dor, Alex Ho",
+          "milestone": "Steam user feedback integration provisioned"
+        },
+        {
+          "date": "2026-04-15",
+          "topic": "2K <> Amplitude sync — AI demo prep, Luke Whelan intro path, value mapping plan",
+          "keyContact": "Ed Lee, Bethany Mangan, Nate Harrison",
+          "milestone": ""
+        }
+      ],
+      "upcoming": [
+        {
+          "date": "2026-04-17",
+          "topic": "AI Overview Demo — global agent workflows, warehouse integration, PDLC preview",
+          "keyContact": "Christian Yoder, Michael Healy, Barry Herbert (Luke Whelan optional)"
+        },
+        {
+          "date": "2026-04-20",
+          "topic": "2K <> Amplitude Intro (Bethany joining) — 2:30pm EDT",
+          "keyContact": "Christian Yoder, Bethany Mangan"
+        },
+        {
+          "date": "2026-04-22",
+          "topic": "Late lunch NYC/Jersey City — relationship building",
+          "keyContact": "Kit Brown-Watts, Adam Schlesinger"
+        },
+        {
+          "date": "2026-04-24",
+          "topic": "Value mapping / pricing discussion (week of 4/20)",
+          "keyContact": "Ed Lee, Ali Bhamani"
+        },
+        {
+          "date": "2026-05-04",
+          "topic": "Executive call — Nate Crook <> Chris Saunders (EB engagement)",
+          "keyContact": "Chris Saunders, Nate Crook"
+        }
+      ]
+    },
+    "threeWhys": {
+      "whyAnything": "2K's existing analytics workflow supports only 4 live campaigns/month at ~40 hours of setup each. Their Treasure Data CDP has collapsed as an operational tool, the data team is overloaded, and game teams can't act on insights without engineering help. Without a change, they'll keep missing monetization windows and watching campaigns launch weeks late.",
+      "whyNow": "The AI transformation already underway at 2K creates a once-in-a-cycle window to modernize the analytics stack alongside new instrumentation — Christian Yoder is driving evaluation to close this quarter, the AWS co-sell path simplifies procurement, and the April 17 AI demo is a hard inflection point. Delaying means another quarter of lost campaign velocity.",
+      "whyAmplitude": "Amplitude wins 87% of head-to-head matchups with Mixpanel and 2K's own team called us 'clearly best for user experience.' Our AI agents answer the 'why' questions Mixpanel admits they can't address. The Databricks warehouse integration complements — rather than replaces — Christian's existing stack, and the Steam user feedback integration directly outperforms CleverTap in gaming-specific use cases."
+    },
+    "meddpicc": {
+      "metrics": {
+        "score": "green",
+        "evidence": "Buyer-validated: ~4 campaigns/month today → 50–90/year possible; ~40hrs/campaign setup → 50–65% faster execution; direct revenue impact from earlier monetization campaign launches. Data team bandwidth costs quantified as blocking roadmap.",
+        "gap": "ROI/Value Map deliverable (Ali Bhamani) not yet finalized — needed for exec call 5/4."
+      },
+      "economicBuyer": {
+        "score": "yellow",
+        "evidence": "Chris Saunders (Head of Product, 2K Technology) identified as EB. Exec call with Nate Crook scheduled 5/4. Phil Dixon (COO) listed in Salesforce as EB — needs reconciliation.",
+        "gap": "Direct EB engagement not yet achieved. Nate Crook prep and exec call 5/4 is the critical path item. Luke Whelan (Head of Data) also a steering stakeholder not yet formally in the loop."
+      },
+      "decisionCriteria": {
+        "score": "yellow",
+        "evidence": "Criteria documented in SF: measurable uplift in monetization/retention, campaign velocity, data security/governance, cross-functional adoption. 2K confirmed Amplitude is 'best in class' on UX.",
+        "gap": "Criteria not formally confirmed with EB (Chris Saunders). Value Map needed to tie criteria to quantified outcomes."
+      },
+      "decisionProcess": {
+        "score": "yellow",
+        "evidence": "Two-phase approach documented: internal POC (Christian driving) → socialized POC with select customers → exec steering (Luke Whelan) → decision. Goal is Q2 close.",
+        "gap": "Luke Whelan not yet formally engaged. Shortlisting process unclear — may still include Mixpanel. Mutual Action Plan not in place."
+      },
+      "paperProcess": {
+        "score": "yellow",
+        "evidence": "Existing MSA in place (Amplitude is already a vendor). Pricing discussion to be scheduled week of 4/20. 2K to provide competitive pricing guidance.",
+        "gap": "Security review not initiated. Paper process not started. Luke Whelan is a key exec steering stakeholder for final approval — not yet engaged."
+      },
+      "identifiedPain": {
+        "score": "green",
+        "evidence": "Extensively documented across Salesforce, Granola, and Slack: Treasure Data CDP failure limiting campaigns to 1–3/quarter, data rolled up to 4 events blocking user journey analysis, bandwidth constraints on data team, slow time-to-insight creating analyst dependency.",
+        "gap": "Pain formally validated with champion but not yet tied to an EB-level business case narrative."
+      },
+      "champion": {
+        "score": "yellow",
+        "evidence": "Dhruv Bhargava listed in SF as Champion. Ed Lee is the active POC driver and most engaged stakeholder. Kit Brown-Watts is a strong internal coach. Christian Yoder owns the technical evaluation.",
+        "gap": "Champion (Ed Lee / Dhruv) hasn't been formally tested — would they buy if it were their decision? Two-phase socialization still underway. POD hasn't confirmed champion strength."
+      },
+      "competition": {
+        "score": "green",
+        "evidence": "Mixpanel (incumbent, broadly used across 2K properties), In-House Infrastructure, Tableau, CleverTap all identified. Amplitude wins 87% vs. Mixpanel; AI agents directly address Mixpanel's stated gap. CleverTap compete materials in hand.",
+        "gap": "Competitive shortlist not confirmed with EB. 'Other' vendor in SF may indicate additional competitors not yet surfaced."
+      },
+      "overallHealth": "needs-attention"
+    },
+    "challengesAndAsks": {
+      "whereWeAreStuck": [
+        "Data instrumentation too basic for full POC depth — data rolled up to 4 events blocks meaningful evaluation; Christian is bandwidth-constrained to fix (AI initiatives competing for his time)",
+        "EB (Chris Saunders) not yet directly engaged — exec call is 5/4 which is a late-stage risk if AI demo on 4/17 doesn't create urgency",
+        "6sense buying stage regressed Purchase → Decision on 4/13 — intent signal weakening going into demo week"
+      ],
+      "whereWeNeedHelp": [
+        "Nate Crook: prep for 5/4 Chris Saunders exec call — needs deal context, value map, and talking points before the call",
+        "Ed Lee: intro to Luke Whelan (Head of Data, Dublin) post-4/17 demo — Luke is exec steering and not yet in the conversation",
+        "Ali Bhamani: finalize Value Map / ROI deliverable before 5/4 exec call",
+        "AWS team: activate co-sell / marketplace path — 98% of 2K cloud is on AWS, procurement shortcut not yet leveraged"
+      ]
+    }
+  }
+]
